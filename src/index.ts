@@ -32,10 +32,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
         });
     }
 
-    const searchReplacePlugin = new SearchReplaceView();
     const searchReplaceModel = new SearchReplaceModel();
+    const searchReplacePlugin = new SearchReplaceView(searchReplaceModel);
 
-    searchReplaceModel.getSearchString('🌈');
+    app.started.then(() => {
+      searchReplaceModel.getSearchString('🌈');
+    });
 
     searchReplacePlugin.title.caption = 'Search and replace';
     searchReplacePlugin.id = 'jp-search-replace';
