@@ -4,10 +4,20 @@ import { Widget } from '@lumino/widgets';
 import { ReactWidget, UseSignal } from '@jupyterlab/apputils';
 import { SearchReplaceModel } from './searchReplace';
 
+//this is the same principle as
+// export function createSearchEntry(): Widget {
 export function createTable(model: SearchReplaceModel): Widget {
   return ReactWidget.create(
     <UseSignal signal={model.searchResult} initialArgs={{ files: [] }}>
       {(_, data) => {
+        //i didn't really understand why do we have to receive these things inside
+        //this signal like this... it's because we were listening to the signal thing
+        //and with this signal we're sending this stuff? maybe bc this is we
+        //creating an object that will be returned
+        //in fact I think that's it?
+        //because this class here, it's being used inside the SearchReplaceView
+        //(the class that's responsible to add things on the frontend)
+        //it's being passed as an argument: this.addWidget(createTable(model));
         const tree = {
           name: 'Root',
           id: 'root',
@@ -27,6 +37,9 @@ export function createTable(model: SearchReplaceModel): Widget {
             }) ?? []
         };
 
+        //this stuff is lying here temporaly because we have all of this signal
+        //emit thing but we're not really activating it since our backend is in fact
+        //a mockup file
         function* treeWalker(refresh: boolean) {
           const stack = [];
 
@@ -104,6 +117,9 @@ const tree = {
       id: 'child-1',
       name: 'Child #1'
     },
+    //idk if we should have this down here, doesn't make sense in my head
+    //i don't understand why we have to do this anywa
+    //is it bc you can't have an empty obj
     {
       children: [{ id: 'child-5', name: 'Child #5' }],
       id: 'child-4',
@@ -180,6 +196,9 @@ const Node = ({ data: { isLeaf, name }, isOpen, style, toggle }) => (
   </div>
 );
 
+//why do we need this?
+//we're using treeWalker, but I don't get why does it have to be wrapped
+//around example bc example is not used anywhere else, oder?
 export const Example = () => (
   <Tree treeWalker={treeWalker} itemSize={30} height={150} width={300}>
     {Node as any}

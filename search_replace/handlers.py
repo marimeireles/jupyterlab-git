@@ -12,6 +12,7 @@ class RouteHandler(APIHandler):
             "data": "This is /search-replace/get_search_string endpoint!"
         }))
 
+    #mock stuff cuz we have nothing implemented on the backend yet
     @tornado.web.authenticated
     def post(self):
         data = self.get_json_body()
@@ -30,7 +31,11 @@ class RouteHandler(APIHandler):
                 }
             ]
         }))
-
+#this handler stuff, each handler must have their own rout_pattern
+#and possibly their own other things
+#one thing I thought it was weird is that you can only have one post and one
+#get method, etc for each app, that doesn't make sense
+#but Fred said that, so yeah, I don't get it
 def setup_handlers(web_app):
     host_pattern = ".*$"
 

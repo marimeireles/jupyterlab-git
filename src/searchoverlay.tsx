@@ -39,6 +39,12 @@ const FOCUSED_INPUT = 'jp-DocumentSearch-focused-input';
 const BUTTON_CONTENT_CLASS = 'jp-DocumentSearch-button-content';
 const BUTTON_WRAPPER_CLASS = 'jp-DocumentSearch-button-wrapper';
 
+//all regex objs like this one need to receive a special treatment more or less
+//and be encapsulated inside a jupyter widget
+//i think like this one: this.addWidget(createSearchEntry());
+
+//this is a kind of thing that regex needs to be able to understand the stuff we're
+//creating underneath
 export function createSearchEntry(): Widget {
   return ReactWidget.create(
     <SearchEntry
@@ -167,6 +173,7 @@ export class ReplaceEntry extends React.Component<IReplaceEntryProps> {
     this.replaceInputRef = React.createRef();
   }
 
+  //all react functions need to have this render method, that's how they work
   render() {
     return (
       <div className={REPLACE_WRAPPER_CLASS}>
